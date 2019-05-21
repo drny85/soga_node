@@ -33,6 +33,8 @@ exports.addTeam = async (req, res) => {
     }
 };
 
+// get all teams
+//end point /api/teams                                         
 exports.getTeams = async (req, res) => {
     try {
         const teams = await Team.find().populate('manager', 'name lastName');
