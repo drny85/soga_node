@@ -1,0 +1,46 @@
+const express = require('express');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config();
+
+const MONGO_URL = `mongodb+srv://sogateam:${process.env.MONGO_PASSWORD}@cluster0-rpt5d.mongodb.net/sogateam`;
+
+
+
+const app = express();
+app.use(morgan('dev'));
+app.use(express.json({
+    type: "application/json"
+}));
+app.use(express.urlencoded({
+    extended: false
+}))
+app.use(express.static(path.join(__dirname, 'public')));
+
+//routes
+app.use('/api', require('./routes/player'));
+app.use('/api', require('./routes/team'));
+
+app.use("/", require("./routes/home"));
+
+
+
+
+
+
+
+
+
+mongoose
+    .connect(MONGO_URL, {
+        useNewUrlParser: true
+    })
+    .then(result => {
+        let PORT = process.env.PORT || 3000;
+        app.listen(PORT);
+        console.log('Server started and DB Connected ' + PORT);
+    })
+    .catch(err => {
+        console.log(err.message);
+    });
