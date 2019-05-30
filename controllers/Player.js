@@ -4,16 +4,22 @@ const {
 } = require('express-validator/check');
 
 exports.addPlayer = async (req, res) => {
+    console.log(req.body);
     const {
         name,
         lastName,
         number,
-        position
+        position,
+        email,
+        phone
     } = req.body;
     //check for input errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json(errors.array());
+        return res.status(400).json({
+            msg: 'error',
+            errors: errors.array()
+        });
     }
 
     try {
@@ -23,6 +29,7 @@ exports.addPlayer = async (req, res) => {
             lastName,
             number
         });
+
         if (query) return res.status(400).json({
             msg: "player already exits"
         });
@@ -31,15 +38,17 @@ exports.addPlayer = async (req, res) => {
         const numberQuery = await Player.findOne({
             number
         });
-        if (numberQuery) return res.status(400).json({
-            msg: `The number ${number} is already taken`
-        });
+        if (numberQuery) return res.status(400).json(new Error(`The number ${number} is already taken`)
+
+        );
         // create a new player after all validation have been checked
         const newPlayer = new Player({
             name,
             lastName,
-            position,
-            number
+            number,
+            email,
+            phone,
+            position
         });
         //save the player and return it
         const data = await newPlayer.save();
@@ -48,14 +57,14 @@ exports.addPlayer = async (req, res) => {
 
 
     } catch (error) {
-        console.log(error);
+        console.log('There');
         res.status(400).json({
             msg: 'error has occured'
         })
     }
 }
 
-// get all players
+//get all players
 exports.getPlayers = async (req, res) => {
 
 
@@ -145,5 +154,7 @@ exports.deletePlayer = async (req, res) => {
         return res.status(400).json({
             msg: 'no player found'
         });
+
     }
+
 };

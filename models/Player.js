@@ -14,8 +14,13 @@ const playerSchema = new Schema({
         lowercase: true
     },
     position: {
+        type: String
+
+    },
+    phone: String,
+    email: {
         type: String,
-        required: true
+        lowercase: true
     },
     number: {
         type: Number,

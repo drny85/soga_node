@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import "./App.css";
 import Player from "./components/Player";
+import PlayerForm from "./components/PlayerForm";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Navbar />
         <div className="container App-background">
           <Route exact path="/" component={Home} />
-          <Route exact path="/player/:id" component={Player} />
+          <Route exact path="/add-player" component={PlayerForm} />
+          <Route path="/player/:id" component={Player} />
         </div>
       </Fragment>
     </Router>

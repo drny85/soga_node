@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Players from "./Players";
-import PlayerForm from "./PlayerForm";
+
 const Home = () => {
   const [players, setplayers] = useState([]);
 
@@ -10,15 +10,18 @@ const Home = () => {
   }, []);
 
   const getPlayers = async () => {
-    const res = await axios.get("/api/players");
-    const data = res.data;
-    setplayers(data);
+    try {
+      const res = await axios.get("/api/players");
+      const data = res.data;
+      setplayers(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="mt-5">
-      <PlayerForm />
-      <div className="h3 text-center ">Welcome Home {}</div>
+      <div className="h3 text-center ">Welcome to SogaTeam {}</div>
       {players.map((player, i) => (
         <Players key={i} players={player} />
       ))}
