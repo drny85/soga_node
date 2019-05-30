@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors')
 const path = require('path');
 require('dotenv').config();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({
     extended: false
 }))
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 //routes
 app.use('/api', require('./routes/player'));
@@ -26,18 +28,12 @@ app.use("/", require("./routes/home"));
 
 
 
-
-
-
-
-
-
 mongoose
     .connect(MONGO_URL, {
         useNewUrlParser: true
     })
     .then(result => {
-        let PORT = process.env.PORT || 3000;
+        let PORT = process.env.PORT || 5000;
         app.listen(PORT);
         console.log('Server started and DB Connected ' + PORT);
     })
