@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import "./App.css";
 import Player from "./components/Player";
 import PlayerForm from "./components/PlayerForm";
+import AllPlayers from "./components/AllPlayers";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/add-player" component={PlayerForm} />
           <Route path="/player/:id" component={Player} />
+          <Route path="/players" component={AllPlayers} />
         </div>
       </Fragment>
     </Router>

@@ -30,6 +30,11 @@ const Navbar = () => {
               Add Player
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/players">
+              All Players
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>

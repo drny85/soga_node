@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../styles/Player.css";
 
 const Players = ({ players }) => {
-  // useEffect(() => {
-  //   return () => {};
-  // }, [players]);
-
   return (
     <div className="row Player-card mb-5">
       <div className="col-4">

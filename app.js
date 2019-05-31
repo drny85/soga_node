@@ -24,7 +24,14 @@ app.use(cors());
 app.use('/api', require('./routes/player'));
 app.use('/api', require('./routes/team'));
 
-app.use("/", require("./routes/home"));
+// app.use("/", require("./routes/home"));
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 
 
