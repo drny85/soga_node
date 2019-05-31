@@ -48,7 +48,19 @@ const PlayerForm = props => {
         }
       });
   };
-  console.log(alert);
+
+  const checkPhone = e => {
+    let val = e.target.value;
+    if (val.length === 3) {
+      val = val + "-";
+    }
+    if (val.length === 7) {
+      val = val + "-";
+    }
+
+    setPlayer({ ...player, phone: val });
+  };
+
   return (
     <div>
       <h3 className="text-center pt-4">Add Player</h3>
@@ -165,9 +177,11 @@ const PlayerForm = props => {
               id="phone"
               name="phone"
               className="form-control"
+              onKeyUp={checkPhone}
               value={player.phone}
               onChange={setValue}
               placeholder="Phone"
+              maxLength="12"
               type="text"
             />
           </div>
