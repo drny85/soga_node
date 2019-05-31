@@ -16,7 +16,14 @@ router.post('/player/add-player', [
     }).withMessage('last name must be at least 3 characters long'),
     check('number').isLength({
         min: 1
-    }).withMessage('a number is required')
+    }).withMessage('a number is required'),
+    check('size').isAlpha().withMessage('No numbers please').isLength({
+        min: 1
+    }).withMessage('size is required'),
+    check('position').isLength({
+        min: 1
+    }).withMessage('position is required'),
+
 
 ], playerController.addPlayer);
 

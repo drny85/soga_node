@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <div className="mt-5">
-      <div className="h3 text-center ">Welcome to SogaTeam {}</div>
+      <div className="h3 text-center p-5">Welcome to SogaTeam {}</div>
       {players.map((player, i) => (
         <Players key={i} players={player} />
       ))}

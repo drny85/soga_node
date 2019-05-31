@@ -4,7 +4,11 @@ import axios from "axios";
 const Player = ({ match }) => {
   const [player, setPlayer] = useState({
     name: "",
-    lastName: ""
+    lastName: "",
+    number: "",
+    phone: "",
+    size: "",
+    position: ""
   });
 
   useEffect(() => {
@@ -18,28 +22,56 @@ const Player = ({ match }) => {
       });
   }, [match.params.id]);
   return (
-    <div className="card mb-3" style={{ maxWidth: 720 }}>
-      <div className="row no-gutters">
-        <div className="col-md-4">
-          <img
-            src="https://picsum.photos/id/500/600/600"
-            className="card-img"
-            alt="..."
-          />
-        </div>
-        <div className="col-md-8">
-          <div className="card-body">
-            <h5 className="card-title text-capitalize">
-              {player.name} {player.lastName}
-            </h5>
-            <p className="card-text">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
-            <p className="card-text">
-              <small className="text-muted">Last updated 3 mins ago</small>
-            </p>
+    <div style={{ marginTop: 20 }}>
+      <div className="card mb-5">
+        <br />
+        <img
+          className="card-img-top pt-5"
+          style={{ maxHeight: "50vh" }}
+          src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584__340.png"
+          alt=""
+        />
+        <div className="card-body" style={{ minHeight: "30vh" }}>
+          <h2 className="card-title text-capitalize text-center">
+            {player.name} {player.lastName}
+          </h2>
+          <div className="player_data">
+            <div className="table-responsive">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Avg</th>
+                    <th>HR</th>
+                    <th>RBI</th>
+                    <th>Singles</th>
+                    <th>Doubles</th>
+                    <th>Triples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{player.avg}</td>
+                    <td>{player.hr}</td>
+                    <td>{player.rbi}</td>
+                    <td>{player.single}</td>
+                    <td>{player.double}</td>
+                    <td>{player.triple}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colSpan="3">Position</th>
+                    <th colSpan="3">Number</th>
+                  </tr>
+                  <tr>
+                    <td colSpan="3" className="text-uppercase">
+                      {player.position}
+                    </td>
+                    <td colSpan="3">{player.number}</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
       </div>

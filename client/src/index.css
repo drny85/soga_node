@@ -1,10 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: 'Montserrat', sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 code {
@@ -14,14 +17,30 @@ code {
 
 
 .add_player_form {
-  background-color: beige;
+  background-color: rgba(166, 178, 185, 0.61);
   width: 70%;
   align-items: center;
   display: flex;
   margin: 0 auto;
   justify-content: center;
+  -webkit-box-shadow: 10px 9px 5px -4px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 10px 9px 5px -4px rgba(0, 0, 0, 0.26);
+  box-shadow: 10px 9px 5px -4px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
 }
 
 .add_player_form button {
   margin-left: 5px;
+}
+
+.add_player_form label {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+  .add_player_form {
+    width: 90%;
+  }
+
+
 }

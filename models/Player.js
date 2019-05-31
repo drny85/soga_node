@@ -22,6 +22,7 @@ const playerSchema = new Schema({
         type: String,
         lowercase: true
     },
+    size: String,
     number: {
         type: Number,
         required: true
@@ -59,6 +60,10 @@ const playerSchema = new Schema({
         default: 0
     },
     hidp: {
+        type: Number,
+        default: 0
+    },
+    hr: {
         type: Number,
         default: 0
     },
