@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-const PlayerForm = props => {
+const PlayerForm = ({ match, history }) => {
   const [player, setPlayer] = useState({
     name: "",
     lastName: "",
@@ -9,6 +9,16 @@ const PlayerForm = props => {
     size: "",
     position: ""
   });
+
+  useEffect(() => {
+    if (match.params.id) {
+      document.querySelector("#btn_sub").innerText = "Update Player";
+      axios
+        .get(`/api/player/${match.params.id}`)
+        .then(res => setPlayer(res.data))
+        .catch(err => console.log(err.response.data));
+    }
+  }, [match.params.id]);
 
   // const [errors, setErrors] = useState({ name: "", msg: "" });
   const Errors = {};
@@ -28,7 +38,7 @@ const PlayerForm = props => {
 
     await axios
       .post("/api/player/add-player", player, config)
-      .then(res => props.history.push("/"))
+      .then(res => history.push("/"))
       .catch(error => {
         if (error) {
           const errs = error.response.data;
@@ -71,7 +81,7 @@ const PlayerForm = props => {
             margin: "0 auto",
             textTransform: "capitalize"
           }}
-          class="alert alert-danger text-center"
+          className="alert alert-danger text-center"
           role="alert"
         >
           {alert.msg}
@@ -186,7 +196,7 @@ const PlayerForm = props => {
             />
           </div>
 
-          <button className="btn btn-dark btn-block" type="submit">
+          <button id="btn_sub" className="btn btn-dark btn-block" type="submit">
             Add Player
           </button>
         </div>

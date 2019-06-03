@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const Player = ({ match }) => {
@@ -24,11 +25,16 @@ const Player = ({ match }) => {
   return (
     <div style={{ marginTop: 20 }}>
       <div className="card mb-5">
+        <div className="mt-3 ml-3">
+          <Link className="btn btn-dark" to={`/edit/${player._id}`}>
+            Edit Player
+          </Link>
+        </div>
         <br />
         <img
           className="card-img-top pt-5"
           style={{ maxHeight: "50vh" }}
-          src="/images/avatar.png"
+          src={player.picture ? player.picture : "/images/avatar.png"}
           alt=""
         />
         <div className="card-body" style={{ minHeight: "30vh" }}>

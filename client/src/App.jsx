@@ -6,6 +6,7 @@ import "./App.css";
 import Player from "./components/Player";
 import PlayerForm from "./components/PlayerForm";
 import AllPlayers from "./components/AllPlayers";
+import Games from "./components/Games";
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         <Navbar />
         <div className="container App-background">
           <Route exact path="/" component={Home} />
-          <Route exact path="/add-player" component={PlayerForm} />
+          <Route path="/add-player" component={PlayerForm} />
+          <Route exact path="/edit/:id" component={PlayerForm} />
+          <Route path="/games" component={Games} />
           <Route path="/player/:id" component={Player} />
           <Route path="/players" component={AllPlayers} />
         </div>

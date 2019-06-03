@@ -78,7 +78,8 @@ const playerSchema = new Schema({
     team: {
         type: Schema.Types.ObjectId,
         ref: 'Team'
-    }
+    },
+    picture: String
 })
 
 

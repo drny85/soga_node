@@ -17,12 +17,12 @@ const Players = ({ players }) => {
         <div className="card">
           <div className="card-body">
             <div className="row">
-              <div className="col-8">
+              <div className="col-7">
                 <h5 className="card-title text-center text-capitalize">
                   {players.name} {players.lastName}
                 </h5>
               </div>
-              <div className="col-4">
+              <div className="col-5">
                 <Link
                   className="btn btn-secondary"
                   to={`/player/${players._id}`}

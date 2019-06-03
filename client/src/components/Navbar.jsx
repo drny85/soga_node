@@ -19,20 +19,25 @@ const Navbar = () => {
         <span className="navbar-toggler-icon" />
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item active">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item active" data-toggle="collapse">
             <NavLink className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
             </NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" data-toggle="collapse">
             <NavLink className="nav-link" to="/add-player">
               Add Player
             </NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" data-toggle="collapse">
             <NavLink className="nav-link" to="/players">
               All Players
+            </NavLink>
+          </li>
+          <li className="nav-item" data-toggle="collapse">
+            <NavLink className="nav-link" to="/games">
+              Games
             </NavLink>
           </li>
         </ul>
