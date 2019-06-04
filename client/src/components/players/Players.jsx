@@ -6,14 +6,14 @@ import "../../styles/Player.css";
 const Players = ({ players }) => {
   return (
     <div className="row Player-card mb-5">
-      <div className="col-4">
+      <div className="col-md-4 col-sm-12">
         <img
           className="img-fluid"
           src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584__340.png"
           alt=""
         />
       </div>
-      <div className="col 8">
+      <div className="col-md-8 col-sm-12">
         <div className="card">
           <div className="card-body">
             <div className="row">
