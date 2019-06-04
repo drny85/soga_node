@@ -1,0 +1,55 @@
+.formStyle {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 4px;
+}
+
+.formStyle input {
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 2px solid gray;
+    width: 100%;
+    padding: 7px;
+}
+
+.formStyle input:focus {
+    border-bottom: 2px solid rgb(58, 58, 102);
+    padding: 7px;
+}
+
+.formStyle input::placeholder {
+    text-align: center;
+    font-style: italic;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+
+}
+
+.formStyle label {
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 5px;
+}
+
+.formStyle button {
+    background: transparent;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    outline: none;
+    padding: 8px;
+    margin-top: 7px;
+    border-radius: 5px;
+    border: 1px solid;
+}
+
+.formStyle button:hover {
+    background-color: beige;
+}
+
+.formStyle button:active {
+    background-color: rgb(65, 57, 57);
+    outline: none;
+    color: #fff;
+}

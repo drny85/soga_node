@@ -2,7 +2,7 @@ import React from "react";
 
 const Game = () => {
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="table-responsive">
         <table className="table">
           <thead>

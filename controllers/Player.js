@@ -1,4 +1,5 @@
 const Player = require("../models/Player");
+const Team = require("../models/Team");
 const {
     validationResult
 } = require("express-validator/check");
@@ -86,7 +87,7 @@ exports.getPlayerById = async (req, res) => {
         if (id) {
             const player = await Player.findOne({
                 _id: id
-            });
+            }).populate('team');
             // check if player was found
             if (!player)
                 return res.status(400).json({
@@ -103,6 +104,7 @@ exports.getPlayerById = async (req, res) => {
 };
 
 exports.updatePlayer = async (req, res) => {
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json(errors.array());
@@ -110,15 +112,16 @@ exports.updatePlayer = async (req, res) => {
 
     try {
         const id = req.params.id;
-        // check fr the jersey number first
-        const found = await Player.findOne({
-            number: req.body.number
-        });
-        if (found)
-            return res.status(400).json({
-                msg: `the number ${req.body.number} is already taken`
-            });
-        //continue if number is not taken
+        // console.log(req.body)
+        // // check fr the jersey number first
+        // const found = await Player.findOne({
+        //     number: req.body.number
+        // });
+        // if (found)
+        //     return res.status(400).json({
+        //         msg: `the number ${req.body.number} is already taken`
+        //     });
+        // //continue if number is not taken
         if (id) {
             const player = await Player.findOneAndUpdate({
                     _id: id
@@ -127,10 +130,35 @@ exports.updatePlayer = async (req, res) => {
                     new: true
                 }
             );
+            const teamId = req.body.team;
+
             res.json(player);
+
+            //res.json(player);
+            const addToTeam = await Team.findOne({
+                _id: teamId
+            });
+
+            if (addToTeam.players.length > 0) {
+
+                addToTeam.players.forEach(p => {
+
+                    if (String(p) !== id) {
+
+                        addToTeam.players.push(id);
+
+                    }
+                });
+            } else {
+                addToTeam.players.push(id);
+
+            }
+            addToTeam.save();
+
+
         }
     } catch (error) {
-        console.log(error);
+
         return res.status(400).json("no player found");
     }
 };

@@ -40,6 +40,11 @@ const Navbar = () => {
               Games
             </NavLink>
           </li>
+          <li className="nav-item" data-toggle="collapse">
+            <NavLink className="nav-link" to="/teams">
+              Teams
+            </NavLink>
+          </li>
         </ul>
       </div>
     </nav>

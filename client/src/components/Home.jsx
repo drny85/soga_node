@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Players from "./Players";
+import Players from "./players/Players";
 
 const Home = () => {
   const [players, setplayers] = useState([]);

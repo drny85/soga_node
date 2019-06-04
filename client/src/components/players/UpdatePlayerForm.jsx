@@ -1,64 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-const PlayerForm = ({ match, history }) => {
-  const [player, setPlayer] = useState({
+
+const UpdatePlayerForm = ({ match, history }) => {
+  const Errors = {};
+  const [player, setUpdatePlayer] = useState({
     name: "",
     lastName: "",
     number: "",
     phone: "",
     size: "",
-    position: ""
+    position: "",
+    team: {}
   });
+  const [alert, setAlert] = useState({});
+  const [teams, setTeams] = useState([]);
 
   useEffect(() => {
-    if (match.params.id) {
-      document.querySelector("#btn_sub").innerText = "Update Player";
-      axios
-        .get(`/api/player/${match.params.id}`)
-        .then(res => setPlayer(res.data))
-        .catch(err => console.log(err.response.data));
-    }
+    axios
+      .get("/api/teams")
+      .then(res => setTeams(res.data))
+      .catch(error => console.log(error.response.data));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/api/player/${match.params.id}`)
+      .then(res => setUpdatePlayer(res.data))
+      .catch(error => console.log(error.response.data));
   }, [match.params.id]);
-
-  // const [errors, setErrors] = useState({ name: "", msg: "" });
-  const Errors = {};
-
-  const setValue = event => {
-    setPlayer({ ...player, [event.target.name]: event.target.value });
-  };
-
-  const [alert, setAlert] = useState({});
 
   const onSubmitHandler = async e => {
     e.preventDefault();
-
-    const config = {
-      headers: { "Content-type": "application/json" }
-    };
-
-    await axios
-      .post("/api/player/add-player", player, config)
-      .then(res => history.push("/"))
-      .catch(error => {
-        if (error) {
-          const errs = error.response.data;
-          if (errs.errors) {
-            errs.errors.forEach(e => {
-              Errors[e.param] = e.msg;
-            });
-          } else {
-            Errors["msg"] = errs.msg;
-            setAlert(Errors);
-          }
-
+    try {
+      const res = await axios.put(`/api/player/update/${player._id}`, player);
+      const data = res.data;
+      history.push(`/player/${data._id}`);
+    } catch (error) {
+      if (error) {
+        const errs = error.response.data;
+        console.log(errs);
+        if (typeof errs === Array) {
+          errs.forEach(e => {
+            Errors[e.param] = e.msg;
+          });
           setAlert(Errors);
-          setTimeout(() => {
-            setAlert({});
-          }, 3000);
+        } else {
+          Errors["msg"] = errs.msg;
+          setAlert(Errors);
         }
-      });
+
+        setTimeout(() => {
+          setAlert({});
+        }, 3000);
+      }
+    }
   };
 
+  const setValue = event => {
+    setUpdatePlayer({ ...player, [event.target.name]: event.target.value });
+  };
+
+  //format phone numer
   const checkPhone = e => {
     let val = e.target.value;
     if (val.length === 3) {
@@ -68,12 +70,12 @@ const PlayerForm = ({ match, history }) => {
       val = val + "-";
     }
 
-    setPlayer({ ...player, phone: val });
+    setUpdatePlayer({ ...player, phone: val });
   };
 
   return (
     <div>
-      <h3 className="text-center pt-4">Add Player</h3>
+      <h3 className="text-center pt-4">Update Player</h3>
       {alert.msg ? (
         <div
           style={{
@@ -195,9 +197,26 @@ const PlayerForm = ({ match, history }) => {
               type="text"
             />
           </div>
-
+          <div className="form-group col-md-12">
+            <label htmlFor="team">Team</label>
+            <select
+              name="team"
+              onChange={setValue}
+              className="form-control text-capitalize"
+              id="team"
+            >
+              <option value="">Select a Team</option>
+              {teams.map(team => {
+                return (
+                  <option key={team._id} value={team._id}>
+                    {team.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
           <button id="btn_sub" className="btn btn-dark btn-block" type="submit">
-            Add Player
+            Update Player
           </button>
         </div>
       </form>
@@ -205,4 +224,4 @@ const PlayerForm = ({ match, history }) => {
   );
 };
 
-export default PlayerForm;
+export default UpdatePlayerForm;

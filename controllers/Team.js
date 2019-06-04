@@ -5,10 +5,19 @@ const {
 
 
 exports.addTeam = async (req, res) => {
-    const {
-        name,
-        manager
+    let {
+        name
+
     } = req.body;
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            msg: "error",
+            errors: errors.array()
+        });
+    }
+
     try {
 
         const team = await Team.findOne({
@@ -19,8 +28,8 @@ exports.addTeam = async (req, res) => {
         });
 
         const newTeam = new Team({
-            name,
-            manager
+            name
+
         })
 
         const teamSaved = await newTeam.save();

@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const Player = ({ match }) => {
+const Player = ({ match, history }) => {
   const [player, setPlayer] = useState({
     name: "",
     lastName: "",
     number: "",
     phone: "",
     size: "",
-    position: ""
+    position: "",
+    team: { name: "" }
   });
+
+  console.log(player);
 
   useEffect(() => {
     axios
@@ -22,13 +25,33 @@ const Player = ({ match }) => {
         }
       });
   }, [match.params.id]);
+
+  const handleDelete = async e => {
+    try {
+      await axios.delete(`/api/player/delete/${player._id}`);
+      history.push("/");
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
   return (
     <div style={{ marginTop: 20 }}>
       <div className="card mb-5">
         <div className="mt-3 ml-3">
-          <Link className="btn btn-dark" to={`/edit/${player._id}`}>
+          <Link className="btn btn-dark mr-2" to={`/edit/${player._id}`}>
             Edit Player
           </Link>
+          <button
+            className="btn btn-danger"
+            onClick={e => {
+              if (
+                window.confirm("Are you sure you wish to delete this player?")
+              )
+                handleDelete(e);
+            }}
+          >
+            Delete Player
+          </button>
         </div>
         <br />
         <img
@@ -66,14 +89,18 @@ const Player = ({ match }) => {
                 </tbody>
                 <tfoot>
                   <tr>
-                    <th colSpan="3">Position</th>
-                    <th colSpan="3">Number</th>
+                    <th colSpan="2">Team</th>
+                    <th colSpan="2">Position</th>
+                    <th colSpan="2">Number</th>
                   </tr>
                   <tr>
-                    <td colSpan="3" className="text-uppercase">
+                    <td colSpan="2" className="text-capitalize">
+                      {player.team ? player.team.name : "No team assigned"}
+                    </td>
+                    <td colSpan="2" className="text-uppercase">
                       {player.position}
                     </td>
-                    <td colSpan="3">{player.number}</td>
+                    <td colSpan="2">{player.number}</td>
                   </tr>
                 </tfoot>
               </table>
