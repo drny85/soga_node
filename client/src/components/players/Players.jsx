@@ -9,12 +9,17 @@ const Players = ({ players }) => {
       <div className="col-md-4 col-sm-12">
         <img
           className="img-fluid"
-          src="https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584__340.png"
+          src={
+            players.picture
+              ? players.picture
+              : "https://cdn.pixabay.com/photo/2013/07/13/10/07/man-156584__340.png"
+          }
           alt=""
+          style={{ maxHeight: "300px" }}
         />
       </div>
       <div className="col-md-8 col-sm-12">
-        <div className="card">
+        <div className="card" style={{ maxHeight: "300px" }}>
           <div className="card-body">
             <div className="row">
               <div className="col-7">
