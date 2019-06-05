@@ -23,6 +23,7 @@ app.use(cors());
 //routes
 app.use('/api', require('./routes/player'));
 app.use('/api', require('./routes/team'));
+app.use('/api', require('./routes/game'));
 
 // app.use("/", require("./routes/home"));
 if (process.env.NODE_ENV === 'production') {
