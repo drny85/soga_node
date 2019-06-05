@@ -5,7 +5,7 @@ const {
 } = require("express-validator/check");
 
 exports.addPlayer = async (req, res) => {
-    console.log(req.body);
+
     const {
         name,
         lastName,

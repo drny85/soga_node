@@ -13,8 +13,6 @@ const Player = ({ match, history }) => {
     team: { name: "" }
   });
 
-  console.log(player);
-
   useEffect(() => {
     axios
       .get(`/api/player/${match.params.id}`)
@@ -26,6 +24,27 @@ const Player = ({ match, history }) => {
       });
   }, [match.params.id]);
 
+  const [file, setFile] = useState("");
+
+  const uploadImage = async e => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await axios.post("/api/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data", userId: player._id }
+      });
+      const data = res.data;
+      setPlayer(data);
+    } catch (error) {
+      console.log(error);
+      console.log(error.response);
+    }
+  };
+
+  const onChange = e => {
+    setFile(e.target.files[0]);
+  };
+
   const handleDelete = async e => {
     try {
       await axios.delete(`/api/player/delete/${player._id}`);
@@ -36,6 +55,66 @@ const Player = ({ match, history }) => {
   };
   return (
     <div style={{ marginTop: 20 }}>
+      {/* <!-- Button trigger modal --> */}
+
+      {/* <!-- Modal --> */}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title text-center" id="exampleModalLabel">
+                Change Profile Picture
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="card">
+                <div className="card-body">
+                  <form>
+                    <input
+                      type="file"
+                      name="file"
+                      onChange={onChange}
+                      id="file"
+                    />
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                onClick={uploadImage}
+                className="btn btn-primary"
+                data-dismiss="modal"
+              >
+                Change Picture
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="card mb-5">
         <div className="mt-3 ml-3">
           <Link className="btn btn-dark mr-2" to={`/edit/${player._id}`}>
@@ -56,7 +135,9 @@ const Player = ({ match, history }) => {
         <br />
         <img
           className="card-img-top pt-5"
-          style={{ maxHeight: "50vh" }}
+          style={{ maxHeight: "600px" }}
+          data-toggle="modal"
+          data-target="#exampleModal"
           src={player.picture ? player.picture : "/images/avatar.png"}
           alt=""
         />

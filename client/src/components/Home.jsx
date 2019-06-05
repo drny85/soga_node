@@ -23,7 +23,7 @@ const Home = () => {
     <div className="mt-5">
       <div className="h3 text-center p-5">Welcome to SogaTeam {}</div>
       {players.map((player, i) => (
-        <Players key={i} players={player} />
+        <Players key={i} player={player} getPlayers={getPlayers} />
       ))}
     </div>
   );

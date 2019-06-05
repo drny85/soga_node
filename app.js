@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors')
 const path = require('path');
 require('dotenv').config();
+const fileUpload = require("express-fileupload");
 
 const MONGO_URL = `mongodb+srv://sogateam:${process.env.MONGO_PASSWORD}@cluster0-rpt5d.mongodb.net/sogateam`;
 
@@ -19,11 +20,14 @@ app.use(express.urlencoded({
 }))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+app.use(fileUpload());
+
 
 //routes
 app.use('/api', require('./routes/player'));
 app.use('/api', require('./routes/team'));
 app.use('/api', require('./routes/game'));
+app.use('/api', require('./routes/upload'));
 
 // app.use("/", require("./routes/home"));
 if (process.env.NODE_ENV === 'production') {
