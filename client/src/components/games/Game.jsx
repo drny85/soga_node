@@ -1,17 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
-const Game = () => {
+const Game = ({ game }) => {
   return (
-    <div className="container-fluid">
+    <div className="container mb-5">
       <div className="table-responsive">
         <table className="table">
           <thead>
             <tr>
-              <th colSpan="5" className="text-center">
-                Game Summary
+              <th>
+                <Link to={`/game/${game._id}`} className="btn btn-secondary">
+                  View Game
+                </Link>
+              </th>
+              <th colSpan="4" className="text-center text-capitalize">
+                Location: {game ? game.location : null}
               </th>
               <th colSpan="4" className="text-right">
-                Date: <span>06/02/2019</span>
+                Date:
+                <span>
+                  {game ? (
+                    <Moment format="MM/DD/YYYY">{game.gameDate}</Moment>
+                  ) : null}
+                </span>
               </th>
             </tr>
             <tr className="table-active">
@@ -57,6 +69,7 @@ const Game = () => {
           </tfoot>
         </table>
       </div>
+      <hr />
     </div>
   );
 };

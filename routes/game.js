@@ -10,4 +10,8 @@ const gameController = require("../controllers/Game");
 
 router.post("/game/new-game", gameController.addGame);
 
+router.get("/game/games", gameController.getGames);
+
+router.get("/game/:id", gameController.getGameById);
+
 module.exports = router;

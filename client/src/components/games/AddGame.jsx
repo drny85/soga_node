@@ -10,7 +10,9 @@ const AddGame = props => {
     e.preventDefault();
     Axios.post("/api/game/new-game", game)
       .then(res => {
-        console.log(res.data);
+        if (res.data) {
+          props.history.push("/games");
+        }
       })
       .catch(error => console.log(error.response.data));
   };

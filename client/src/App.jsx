@@ -11,6 +11,7 @@ import UpdatePlayerForm from "./components/players/UpdatePlayerForm";
 import Teams from "./components/Teams/Teams";
 import AddTeam from "./components/Teams/AddTeam";
 import AddGame from "./components/games/AddGame";
+import GameDetails from "./components/games/GameDetails";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/add-player" component={PlayerForm} />
           <Route exact path="/edit/:id" component={UpdatePlayerForm} />
           <Route path="/games" component={Games} />
+          <Route path="/game/:id" component={GameDetails} />
           <Route path="/player/:id" component={Player} />
           <Route path="/teams" component={Teams} />
           <Route path="/add-team" component={AddTeam} />
