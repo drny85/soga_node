@@ -140,16 +140,16 @@ exports.updatePlayer = async (req, res) => {
             });
 
             if (addToTeam.players.length > 0) {
+                console.log(typeof id);
+                if (!addToTeam.players.includes(id)) {
+                    addToTeam.players.push(id);
+                    console.log("player added");
+                } else {
+                    console.log("player already added");
+                }
 
-                addToTeam.players.forEach(p => {
-
-                    if (String(p) !== id) {
-
-                        addToTeam.players.push(id);
-
-                    }
-                });
             } else {
+                console.log('There');
                 addToTeam.players.push(id);
 
             }

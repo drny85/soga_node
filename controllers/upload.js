@@ -22,6 +22,7 @@ exports.uploadPicture = async (req, res) => {
 
     //image past validation
     file.mv("./public/images/" + String(file.name).toLowerCase(), err => {
+
         if (err) {
             console.error(err);
             return res.status(500).send(err)
@@ -35,6 +36,7 @@ exports.uploadPicture = async (req, res) => {
                 new: true
             })
             .then(player => {
+
                 res.json(player);
             })
             .catch(error => {

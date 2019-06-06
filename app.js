@@ -28,6 +28,7 @@ app.use('/api', require('./routes/player'));
 app.use('/api', require('./routes/team'));
 app.use('/api', require('./routes/game'));
 app.use('/api', require('./routes/upload'));
+``
 
 // app.use("/", require("./routes/home"));
 if (process.env.NODE_ENV === 'production') {

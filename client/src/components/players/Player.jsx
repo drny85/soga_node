@@ -10,6 +10,7 @@ const Player = ({ match, history }) => {
     phone: "",
     size: "",
     position: "",
+    picture: null,
     team: { name: "" }
   });
 
@@ -33,11 +34,11 @@ const Player = ({ match, history }) => {
       const res = await axios.post("/api/upload", formData, {
         headers: { "Content-Type": "multipart/form-data", userId: player._id }
       });
-      const data = res.data;
+      const data = await res.data;
       setPlayer(data);
+      console.log("Player:", player);
     } catch (error) {
-      console.log(error);
-      console.log(error.response);
+      console.log(error.response.data);
     }
   };
 
