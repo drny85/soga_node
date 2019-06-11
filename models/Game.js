@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Team = require("../models/Team");
 
 const Schema = mongoose.Schema;
 
@@ -12,10 +13,11 @@ const gameSchema = new Schema({
         type: [Schema.Types.ObjectId],
         ref: "Player"
     },
-    teams: {
-        type: [Schema.Types.ObjectId],
+    teams: [{
+        type: Schema.Types.ObjectId,
         ref: "Team"
-    },
+    }],
+
     winner: {
         type: Schema.Types.ObjectId,
         ref: "Team"

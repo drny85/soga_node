@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 
 const Game = ({ game }) => {
+  console.log(game);
   return (
     <div className="container mb-5">
       <div className="table-responsive">
@@ -40,7 +41,7 @@ const Game = ({ game }) => {
           </thead>
           <tbody>
             <tr>
-              <th>AWAY</th>
+              <th>{game.away}</th>
               <td>0</td>
               <td>0</td>
               <td>1</td>

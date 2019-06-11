@@ -36,7 +36,6 @@ const Player = ({ match, history }) => {
       });
       const data = await res.data;
       setPlayer(data);
-      console.log("Player:", player);
     } catch (error) {
       console.log(error.response.data);
     }

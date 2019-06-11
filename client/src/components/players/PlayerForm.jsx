@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import PlayerContext from "../../context/player/PlayerContext";
 import axios from "axios";
 const PlayerForm = ({ match, history }) => {
   const [player, setPlayer] = useState({
@@ -9,6 +10,9 @@ const PlayerForm = ({ match, history }) => {
     size: "",
     position: ""
   });
+
+  const playerState = useContext(PlayerContext);
+  const { addPlayer, loading } = playerState;
 
   // const [errors, setErrors] = useState({ name: "", msg: "" });
   const Errors = {};
@@ -21,31 +25,35 @@ const PlayerForm = ({ match, history }) => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
+    addPlayer(player);
+    if (!loading) {
+      history.push("/");
+    }
 
-    const config = {
-      headers: { "Content-type": "application/json" }
-    };
-    axios
-      .post("/api/player/add-player", player, config)
-      .then(res => history.push("/"))
-      .catch(error => {
-        if (error) {
-          const errs = error.response.data;
-          if (errs.errors) {
-            errs.errors.forEach(e => {
-              Errors[e.param] = e.msg;
-            });
-          } else {
-            Errors["msg"] = errs.msg;
-            setAlert(Errors);
-          }
+    // const config = {
+    //   headers: { "Content-type": "application/json" }
+    // };
+    // axios
+    //   .post("/api/player/add-player", player, config)
+    //   .then(res => history.push("/"))
+    //   .catch(error => {
+    //     if (error) {
+    //       const errs = error.response.data;
+    //       if (errs.errors) {
+    //         errs.errors.forEach(e => {
+    //           Errors[e.param] = e.msg;
+    //         });
+    //       } else {
+    //         Errors["msg"] = errs.msg;
+    //         setAlert(Errors);
+    //       }
 
-          setAlert(Errors);
-          setTimeout(() => {
-            setAlert({});
-          }, 3000);
-        }
-      });
+    //       setAlert(Errors);
+    //       setTimeout(() => {
+    //         setAlert({});
+    //       }, 3000);
+    //     }
+    //   });
   };
 
   const checkPhone = e => {

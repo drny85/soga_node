@@ -4,35 +4,44 @@ const Game = require("../models/Game");
 exports.addGame = async (req, res) => {
     const {
         gameDate,
-        location
+        location,
+        away,
+        home
     } = req.body;
 
     const newGame = new Game({
         gameDate,
-        location
+        location,
+        teams: []
+
     })
 
+
+    newGame.teams.push(away);
+    newGame.teams.push(home);
     const game = await newGame.save();
     res.json(game);
 };
 
 exports.getGames = (req, res) => {
     Game.find()
-        .then(games => {
-            return res.json(games);
-        })
-        .catch(error => {
-            return res.status(400).json({
-                msg: "no games scheduled"
+        .populate('teams')
+        .exec(function (err, games) {
+            if (err) return res.status(400).json({
+                msg: "error"
             });
+            console.log(games);
+            res.json(games);
         });
+
+
 
 };
 
 exports.getGameById = (req, res) => {
-    console.log(req);
+
     const id = req.params.id;
-    console.log(id);
+
     if (!id) return res.status(400).json({
         msg: "no game found"
     });
@@ -40,7 +49,11 @@ exports.getGameById = (req, res) => {
     Game.findOne({
             _id: id
         })
-        .then(game => res.json(game))
+        .populate('teams')
+        .then(game => {
+            console.log(game);
+            res.json(game);
+        })
         .catch(error => {
             return res.status(400).json({
                 msg: "game not found"

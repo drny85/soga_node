@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import "../../styles/Player.css";
 
-const Players = ({ player, getPlayers }) => {
+const Players = ({ player, loading }) => {
   return (
     <div className="row Player-card mb-5">
       <div className="col-md-4 col-sm-12">
@@ -60,8 +60,7 @@ const Players = ({ player, getPlayers }) => {
 };
 
 Players.prototypes = {
-  players: PropTypes.array.isRequired,
-  getPlayers: PropTypes.func.isRequired
+  players: PropTypes.array.isRequired
 };
 
 export default Players;

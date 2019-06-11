@@ -8,10 +8,10 @@ const teamSchema = new Schema({
         required: true,
         lowercase: true
     },
-    players: {
-        type: [Schema.Types.ObjectId],
-        ref: 'Player'
-    },
+    players: [{
+        type: Schema.Types.ObjectId,
+        ref: "Player"
+    }],
     manager: {
         type: Schema.Types.ObjectId,
         ref: 'Player'

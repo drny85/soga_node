@@ -17,4 +17,7 @@ router.post('/team/add-team', [
 // get all teams
 router.get('/teams', teamControllers.getTeams);
 
+//get a single team by id
+router.get('/team/:id', teamControllers.getTeamById);
+
 module.exports = router;

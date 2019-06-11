@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext, useEffect } from "react";
+import PlayerContext from "../../context/player/PlayerContext";
 
 const AllPlayers = () => {
-  useEffect(() => {
-    axios
-      .get("/api/players")
-      .then(pl => setplayer(pl.data))
-      .catch(err => console.log(err.response.data));
-  }, []);
+  const PlayerState = useContext(PlayerContext);
+  const { players, getPlayers } = PlayerState;
 
-  const [players, setplayer] = useState([]);
+  useEffect(() => {
+    getPlayers();
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div className="container">

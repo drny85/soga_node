@@ -58,3 +58,16 @@ exports.getTeams = async (req, res) => {
         });
     }
 };
+
+exports.getTeamById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        if (!id) return res.status(400).json({
+            msg: 'no team found'
+        });
+        const team = await Team.findById(id).populate('players');
+        res.json(team);
+    } catch (error) {
+        console.error(error);
+    }
+}
