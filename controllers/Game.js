@@ -30,7 +30,7 @@ exports.getGames = (req, res) => {
             if (err) return res.status(400).json({
                 msg: "error"
             });
-            console.log(games);
+
             res.json(games);
         });
 
@@ -51,7 +51,7 @@ exports.getGameById = (req, res) => {
         })
         .populate('teams')
         .then(game => {
-            console.log(game);
+
             res.json(game);
         })
         .catch(error => {

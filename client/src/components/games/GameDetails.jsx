@@ -8,10 +8,12 @@ const GameDetails = ({ match }) => {
   useEffect(() => {
     Axios.get("/api/game/detail/" + match.params.id)
       .then(g => {
+        console.log(g.data);
         setGame(g.data);
       })
       .catch(error => console.log(error.response.data));
-  }, [match.params.id]);
+    //eslint-disable-next-line
+  }, []);
   return (
     <div className="container">
       <h3 className="text-center mt-5">Game Details</h3>
@@ -19,7 +21,10 @@ const GameDetails = ({ match }) => {
         <div className="card-title">
           <div className="row">
             <div className="col-md-8">
-              <h4 className="text-center card-title p-3">Team one vs Team 2</h4>
+              <h4 className="text-center card-title p-3 text-capitalize font-weight-bold">
+                {game.teams ? game.teams[0].name : null} vs{" "}
+                {game.teams ? game.teams[1].name : null}
+              </h4>
             </div>
             <div className="col -md-4 p-3">
               <Link

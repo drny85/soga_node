@@ -41,7 +41,7 @@ const Game = ({ game }) => {
           </thead>
           <tbody>
             <tr>
-              <th>{game.away}</th>
+              <th className="text-capitalize">{game.teams[0].name}</th>
               <td>0</td>
               <td>0</td>
               <td>1</td>
@@ -53,7 +53,7 @@ const Game = ({ game }) => {
               <th>2</th>
             </tr>
             <tr>
-              <th>SOGA</th>
+              <th className="text-capitalize">{game.teams[1].name}</th>
               <td>0</td>
               <td>0</td>
               <td>1</td>
